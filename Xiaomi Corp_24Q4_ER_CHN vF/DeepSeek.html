@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米集团2024年第四季度及全年业绩报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6900;
+            --secondary: #4688F1;
+            --success: #34D399;
+        }
+        .dark {
+            --bg: #181818;
+            --text: #f5f5f5;
+            --card: #262626;
+            --border: #404040;
+        }
+        .light {
+            --bg: #ffffff;
+            --text: #262626;
+            --card: #f5f5f5;
+            --border: #e5e5e5;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chart-bar {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            height: 0.75rem;
+            border-radius: 0.375rem;
+        }
+        .animate-entry {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="light">
+    <!-- 主题切换 -->
+    <button id="themeToggle" class="fixed top-6 right-6 z-50 p-3 rounded-full bg-[var(--card)] shadow-lg hover:scale-105">
+        <i class="fas fa-moon text-[var(--text)]"></i>
+    </button>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        <!-- 标题区 -->
+        <header class="text-center space-y-6 animate-entry" style="animation-delay: 0.1s">
+            <div class="h-24 w-24 mx-auto bg-[var(--card)] rounded-2xl p-4">
+                <img src="https://i.imgur.com/3QZ2JQj.png" alt="小米logo">
+            </div>
+            <h1 class="text-4xl font-bold tracking-tight">人车家全生态战略成果展示</h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400">2024年第四季度及全年业绩报告</p>
+        </header>
+
+        <!-- 核心财务指标 -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <!-- 总收入卡片 -->
+            <div class="card p-8 animate-entry" style="animation-delay: 0.2s">
+                <h2 class="text-2xl font-bold mb-6">💰 财务总览</h2>
+                <div class="space-y-6">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span>全年总收入</span>
+                            <span class="font-semibold">3,659亿 <span class="text-success">+35.0%</span></span>
+                        </div>
+                        <div class="chart-bar w-full"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] text-white">
+                            <p class="text-sm">智能手机收入</p>
+                            <p class="text-2xl font-bold">1,918亿</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-opacity-10 bg-[var(--primary)]">
+                            <p class="text-sm">经调整净利润</p>
+                            <p class="text-2xl font-bold">272亿 <span class="text-sm">+41.3%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 市场份额卡片 -->
+            <div class="card p-8 animate-entry" style="animation-delay: 0.3s">
+                <h2 class="text-2xl font-bold mb-6">📊 市场表现</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm">全球智能手机份额</p>
+                            <p class="text-3xl font-bold">13.8%</p>
+                        </div>
+                        <div class="radial-progress text-[var(--primary)]" style="--value:70; --size:4rem;"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-1/3">
+                                <p class="text-sm">高端机型占比</p>
+                                <p class="text-xl">23.3%</p>
+                            </div>
+                            <div class="w-2/3 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div class="chart-bar h-full w-[70%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生态战略成果 -->
+        <section class="card p-8 animate-entry" style="animation-delay: 0.4s">
+            <h2 class="text-2xl font-bold mb-8">🚀 人车家全生态成果</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center p-6 rounded-xl bg-[var(--bg)]">
+                    <div class="text-4xl font-bold text-[var(--primary)]">7亿</div>
+                    <p class="mt-2">全球月活跃用户</p>
+                    <div class="mt-4 h-1 bg-gray-200 rounded-full">
+                        <div class="chart-bar h-full w-[85%]"></div>
+                    </div>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-[var(--bg)]">
+                    <div class="text-4xl font-bold text-[var(--secondary)]">13.6万</div>
+                    <p class="mt-2">智能电动车交付量</p>
+                    <div class="mt-4 h-1 bg-gray-200 rounded-full">
+                        <div class="chart-bar h-full w-[60%]"></div>
+                    </div>
+                </div>
+                <div class="text-center p-6 rounded-xl bg-[var(--bg)]">
+                    <div class="text-4xl font-bold text-[var(--success)]">904.6M</div>
+                    <p class="mt-2">IoT连接设备</p>
+                    <div class="mt-4 h-1 bg-gray-200 rounded-full">
+                        <div class="chart-bar h-full w-[90%]"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研发与创新 -->
+        <section class="card p-8 animate-entry" style="animation-delay: 0.5s">
+            <h2 class="text-2xl font-bold mb-8">🔬 研发创新</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="flex-1">
+                    <div class="text-3xl font-bold text-[var(--primary)]">1000亿+</div>
+                    <p class="mt-2 text-gray-500">2021-2025研发总投入</p>
+                    <div class="mt-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span>超级电机</span>
+                            <div class="w-1/2 h-2 bg-gray-200 rounded-full">
+                                <div class="chart-bar h-full w-[80%]"></div>
+                            </div>
+                        </div>
+                        <!-- 更多研发项目 -->
+                    </div>
+                </div>
+                <div class="md:w-1/3">
+                    <div class="aspect-video bg-gray-100 dark:bg-gray-800 rounded-xl p-4">
+                        <p class="text-sm text-gray-500">关键技术突破</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-microchip text-[var(--primary)] mr-2"></i>
+                                澎湃OS 2.0
+                            </li>
+                            <!-- 更多技术 -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="pt-12 border-t border-[var(--border)] animate-entry" style="animation-delay: 0.6s">
+            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+                <div class="space-y-2 mb-4 md:mb-0">
+                    <p>📝 数据可视化设计：PatTianFang</p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/PatTianFang" class="hover:text-[var(--primary)] transition-colors">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <span>📧 IR@xiaomi.com</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p>© 2024 小米集团 版权所有</p>
+                    <p class="mt-1">数据截止：2024年12月31日</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // 主题切换逻辑
+        const themeToggle = document.getElementById('themeToggle');
+        const setTheme = (isDark) => {
+            document.documentElement.classList.toggle('dark', isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggle.innerHTML = isDark 
+                ? '<i class="fas fa-sun text-[var(--text)]"></i>'
+                : '<i class="fas fa-moon text-[var(--text)]"></i>';
+        }
+
+        // 初始化主题
+        const preferredTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(preferredTheme === 'dark');
+
+        themeToggle.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+
+        // 滚动动画控制
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-entry').forEach(el => observer.observe(el));
+
+        // 悬停交互
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.15)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>

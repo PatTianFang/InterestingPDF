@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米澎湃OS技术白皮书</title>
+    <!-- TailwindCSS 通过CDN引入 -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 自定义样式 */
+        :root {
+            --primary-color: #333;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #fff;
+        }
+
+        .dark-mode {
+            --primary-color: #f5f5f5;
+            --secondary-color: #333;
+            --accent-color: #ff6b6b;
+            --text-color: #f5f5f5;
+            --bg-color: #121212;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            @apply bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 mb-6;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            @apply shadow-xl;
+            transform: translateY(-5px);
+        }
+
+        .btn {
+            @apply bg-accent-color text-white rounded-md px-4 py-2;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            @apply bg-opacity-90;
+            transform: scale(1.05);
+        }
+
+        .section-title {
+            @apply text-2xl font-bold mb-4;
+        }
+
+        .timeline-item {
+            @apply relative pb-4 mb-4 border-l-2 border-gray-300 dark:border-gray-600 pl-4;
+        }
+
+        .timeline-item:before {
+            content: "";
+            @apply absolute left-0 top-0 w-4 h-4 bg-accent-color rounded-full;
+            transform: translateX(-50%);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .section-title {
+                @apply text-xl;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto px-4 py-8">
+        <!-- 导航栏 -->
+        <nav class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 mb-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <img src="https://via.placeholder.com/40" alt="Logo" class="h-10">
+                    <h1 class="ml-4 text-xl font-bold text-gray-800 dark:text-white">小米澎湃OS技术白皮书</h1>
+                </div>
+                <div class="flex items-center">
+                    <button id="theme-toggle" class="btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 主要内容 -->
+        <main class="fade-in">
+            <!-- 介绍部分 -->
+            <section class="card mb-8">
+                <h2 class="section-title">关于小米澎湃OS</h2>
+                <p class="mb-4">
+                    小米澎湃OS是小米公司推出的全新操作系统，旨在为用户提供引擎，实现单端性能表现最强；AI赋能，成为整个生态的"智能大脑"；便捷高效的连接；全端隐私安全坚固防护。
+                </p>
+                <p class="mb-4">
+                    小米澎湃OS操作系统大事记：
+                    <ul class="list-disc list-inside mt-2">
+                        <li>2010年 MIUI诞生</li>
+                        <li>2014年 统一的IoT设备连接协议、通用IoT模组发布</li>
+                        <li>2016年 跨端快应用框架启用</li>
+                        <li>2017年 自研Vela OS，逐步统一IoT设备系统</li>
+                        <li>2019年 预研Mina OS；自研微内核安全系统启动</li>
+                        <li>2020年 跨端互联互通协议融合</li>
+                        <li>2021年 统一技术架构设计；小米汽车OS启动</li>
+                        <li>2022年 统一软件架构，系统研发并线完成</li>
+                    </ul>
+                </p>
+            </section>
+
+            <!-- 技术架构 -->
+            <section class="card mb-8">
+                <h2 class="section-title">技术架构</h2>
+                <div class="flex flex-col md:flex-row">
+                    <div class="w-full md:w-1/2 p-2">
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold mb-2">系统内核层</h3>
+                            <ul class="list-disc list-inside">
+                                <li>Linux内核：融合内核的标准化组件集，适用重载硬件资源的抽象与管理</li>
+                                <li>Vela内核：融合内核的轻量化组件集，适用轻量硬件资源的抽象与管理</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 p-2">
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold mb-2">系统服务层</h3>
+                            <ul class="list-disc list-inside">
+                                <li>资源调度子系统：合理、高效地分配和管理系统资源</li>
+                                <li>网络子系统：支持多设备、分布式、安全和高性能的网络通信</li>
+                                <li>多媒体子系统：处理多媒体内容及与多媒体硬件交互</li>
+                                <li>图形子系统：管理和控制图形显示及用户界面渲染</li>
+                                <li>安全子系统：满足不同设备和应用场景的安全需求</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 发展历程 -->
+            <section class="card mb-8">
+                <h2 class="section-title">发展历程</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2010年</h3>
+                        <p>MIUI诞生</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2014年</h3>
+                        <p>统一的IoT设备连接协议、通用IoT模组发布</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2016年</h3>
+                        <p>跨端快应用框架启用</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2017年</h3>
+                        <p>自研Vela OS，逐步统一IoT设备系统</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2019年</h3>
+                        <p>预研Mina OS；自研微内核安全系统启动</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2020年</h3>
+                        <p>跨端互联互通协议融合</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2021年</h3>
+                        <p>统一技术架构设计；小米汽车OS启动</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-lg font-semibold">2022年</h3>
+                        <p>统一软件架构，系统研发并线完成</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 核心组件 -->
+            <section class="card mb-8">
+                <h2 class="section-title">核心组件</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">资源调度子系统</h3>
+                        <p>围绕系统资源进行工作，聚焦任务如何在硬件上进行管理和调度。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">网络子系统</h3>
+                        <p>负责数据的传输、接收和通信，包含短距子系统和蜂窝子系统。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">多媒体子系统</h3>
+                        <p>处理音频、视频、影像等多媒体数据的功能/服务集合。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">图形子系统</h3>
+                        <p>作为系统与用户间最重要的交互界面，包含自研视效引擎等技术。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">安全子系统</h3>
+                        <p>结合软硬件安全技术，提供端到端的完整链路保护。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">AI子系统</h3>
+                        <p>包含大模型能力在内的各类AI相关能力，提供智慧能力服务。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 安全特性 -->
+            <section class="card mb-8">
+                <h2 class="section-title">安全特性</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">硬件唯一密钥（HUK）</h3>
+                        <p>每台设备的HUK都唯一且不可篡改，仅可以通过硬件加密引擎访问。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">硬件加解密引擎</h3>
+                        <p>确保设备在保证安全强度的同时不对性能、续航等造成影响。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">安全芯片（eSE）</h3>
+                        <p>具备安全计算和安全存储能力的独立安全芯片，安全等级高。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">TEE（可信执行环境）</h3>
+                        <p>提供可信应用的安全执行环境，保护可信应用的资源和数据。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">设备证明</h3>
+                        <p>确保设备的可信度，应用程序可以向服务器发送认证请求。</p>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold mb-2">安全启动</h3>
+                        <p>通过公钥验证程序或数据的签名，确保启动文件或程序的完整和可信。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 开发者平台 -->
+            <section class="card mb-8">
+                <h2 class="section-title">开发者平台</h2>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-2">统一开发环境</h3>
+                    <p>通过统一的应用开发环境，开发者可以使用相同的工具、框架来构建跨端应用、安卓应用、轻量应用。</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>基于IntelliJ IDEA定制和扩展</li>
+                        <li>支持AI辅助编程</li>
+                        <li>提供跨端编译器、调试器、布局器</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 分发体系 -->
+            <section class="card mb-8">
+                <h2 class="section-title">分发体系</h2>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold mb-2">服务分发</h3>
+                    <p>基于用户行为感知，实现多场景智能分发。</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>服务直达：将核心、高频场景服务内容推荐给用户</li>
+                        <li>服务堆叠：优化服务使用率，支持小部件服务堆叠</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mt-4">
+                    <h3 class="text-lg font-semibold mb-2">应用分发</h3>
+                    <p>打造最安全、最健康的应用生态。</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>多网并行高速下载</li>
+                        <li>应用包体压缩</li>
+                        <li>安装提前云端校验</li>
+                        <li>Bundle包体动态分发</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- 作者信息 -->
+        <footer class="bg-white dark:bg-gray-800 shadow-inner rounded-lg p-4 mt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        作者：PatTianFang
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        版权 © 2023
+                    </p>
+                </div>
+                <div class="flex mt-2 md:mt-0">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-accent-color">
+                        <i class="fab fa-weixin mr-2"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-accent-color">
+                        <i class="fab fa-github ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 深色/浅色模式切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            
+            // 检查系统偏好
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                
+                // 更新图标
+                themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

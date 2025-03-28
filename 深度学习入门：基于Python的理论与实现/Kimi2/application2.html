@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动驾驶应用案例</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <header class="bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">
+                    <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">深度学习入门</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:transition-all after:duration-300 after:peer-checked:right-[2px] after:peer-checked:bg-blue-600 after:peer-focus:ring-blue-300 dark:after:peer-focus:ring-blue-800"></div>
+                            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">深色模式</span>
+                        </label>
+                    </div>
+                    <div class="space-x-2">
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-blue-600 dark:text-blue-400">自动驾驶应用案例</h1>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">深度学习在自动驾驶中的应用</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                深度学习在自动驾驶中的应用包括物体检测、图像分割和路径规划等。
+            </p>
+            <div class="flex justify-center mb-4">
+                <img src="https://via.placeholder.com/600x300?text=自动驾驶示意图" alt="自动驾驶示意图" class="max-w-full h-auto rounded">
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">物体检测</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用卷积神经网络进行物体检测，识别图像中的行人、车辆等。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">import cv2
+import numpy as np
+
+# 加载预训练的YOLO模型
+net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+layer_names = net.getLayerNames()
+output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+
+# 加载图像
+img = cv2.imread("image.jpg")
+height, width, channels = img.shape
+
+# 检测物体
+blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
+net.setInput(blob)
+outs = net.forward(output_layers)
+
+# 处理检测结果
+for out in outs:
+    for detection in out:
+        scores = detection[5:]
+        class_id = np.argmax(scores)
+        confidence = scores[class_id]
+        if confidence > 0.5:
+            # 绘制检测框
+            center_x = int(detection[0] * width)
+            center_y = int(detection[1] * height)
+            w = int(detection[2] * width)
+            h = int(detection[3] * height)
+            x = int(center_x - w / 2)
+            y = int(center_y - h / 2)
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+cv2.imshow("Image", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">图像分割</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用语义分割技术，将图像中的不同区域进行分类。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">import cv2
+import numpy as np
+
+# 加载预训练的分割模型
+model = cv2.dnn.readNetFromTensorflow("deeplabv3.pb")
+
+# 加载图像
+img = cv2.imread("image.jpg")
+height, width, _ = img.shape
+
+# 进行图像分割
+blob = cv2.dnn.blobFromImage(img, scalefactor=1/255, size=(513, 513), mean=(127.5, 127.5, 127.5), swapRB=True, crop=False)
+model.setInput(blob)
+output = model.forward()
+output = output[0]
+output = cv2.resize(output, (width, height), interpolation=cv2.INTER_CUBIC)
+output = np.argmax(output, axis=0)
+
+# 可视化分割结果
+colors = [(0, 0, 0), (255, 0, 0), (0, 255, 0), (0, 0, 255)]
+for i in range(len(colors)):
+    img[output == i] = colors[i]
+
+cv2.imshow("Segmentation", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">路径规划</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用深度学习进行路径规划，帮助自动驾驶汽车避开障碍物。
+            </p>
+            <div class="flex justify-center mb-4">
+                <img src="https://via.placeholder.com/600x300?text=路径规划示意图" alt="路径规划示意图" class="max-w-full h-auto rounded">
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-900 shadow-inner">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        © 2023 <span class="font-bold text-gray-800 dark:text-gray-200">PatTianFang</span>. 保留所有权利。
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+                本网站使用了 Tailwind CSS 和 Font Awesome 图标库
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

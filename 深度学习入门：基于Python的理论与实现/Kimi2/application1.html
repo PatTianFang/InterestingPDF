@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图像识别应用案例</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css/11.7.0/styles/github.min">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <header class="bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">
+                    <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">深度学习入门</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:transition-all after:duration-300 after:peer-checked:right-[2px] after:peer-checked:bg-blue-600 after:peer-focus:ring-blue-300 dark:after:peer-focus:ring-blue-800"></div>
+                            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">深色模式</span>
+                        </label>
+                    </div>
+                    <div class="space-x-2">
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-blue-600 dark:text-blue-400">图像识别应用案例</h1>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">MNIST手写数字识别</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用MNIST数据集进行手写数字识别，展示神经网络的实际应用。
+            </p>
+            <div class="flex justify-center mb-4">
+                <img src="https://via.placeholder.com/600x300?text=MNIST手写数字识别" alt="MNIST手写数字识别" class="max-w-full h-auto rounded">
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">MNIST数据集</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                MNIST数据集包含60000张训练图像和10000张测试图像，每张图像都是28x28像素的灰度图像。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">(x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
+print(x_train.shape)  # (60000, 784)
+print(t_train.shape)  # (60000,)
+print(x_test.shape)  # (10000, 784)
+print(t_test.shape)  # (10000,)</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">神经网络的推理处理</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用训练好的神经网络进行推理，计算识别精度。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">x, t = get_data()
+network = init_network()
+accuracy_cnt = 0
+for i in range(len(x)):
+    y = predict(network, x[i])
+    p = np.argmax(y)
+    if p == t[i]:
+        accuracy_cnt += 1
+
+print("Accuracy:" + str(float(accuracy_cnt) / len(x)))  # Accuracy:0.9352</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">批处理</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用批处理可以提高计算效率，减少处理时间。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">x, t = get_data()
+network = init_network()
+batch_size = 100
+accuracy_cnt = 0
+
+for i in range(0, len(x), batch_size):
+    x_batch = x[i:i+batch_size]
+    y_batch = predict(network, x_batch)
+    p = np.argmax(y_batch, axis=1)
+    accuracy_cnt += np.sum(p == t[i:i+batch_size])
+
+print("Accuracy:" + str(float(accuracy_cnt) / len(x)))  # Accuracy:0.9352</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-900 shadow-inner">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        © 2023 <span class="font-bold text-gray-800 dark:text-gray-200">PatTianFang</span>. 保留所有权利。
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+                本网站使用了 Tailwind CSS 和 Font Awesome 图标库
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

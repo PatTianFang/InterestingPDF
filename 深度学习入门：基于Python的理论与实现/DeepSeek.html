@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深度学习入门 - 可视化学习指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #4f46e5;
+            --bg: #ffffff;
+            --text: #1f2937;
+        }
+        .dark {
+            --bg: #111827;
+            --text: #f3f4f6;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] transition-colors duration-300">
+    <!-- 导航栏 -->
+    <nav class="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">深度学习入门</h1>
+            <div class="flex items-center gap-4">
+                <button id="themeToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- 章节导航 -->
+        <section class="grid md:grid-cols-3 gap-6 mb-16 fade-in">
+            <div class="card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <i class="fab fa-python text-3xl mb-4 text-blue-500"></i>
+                <h3 class="text-lg font-semibold mb-2">Python基础</h3>
+                <p class="text-gray-600 dark:text-gray-400">NumPy数组操作、Matplotlib可视化基础</p>
+            </div>
+            
+            <div class="card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-network-wired text-3xl mb-4 text-purple-500"></i>
+                <h3 class="text-lg font-semibold mb-2">神经网络架构</h3>
+                <p class="text-gray-600 dark:text-gray-400">多层感知机实现与反向传播原理</p>
+            </div>
+
+            <div class="card p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <i class="fas fa-chart-line text-3xl mb-4 text-green-500"></i>
+                <h3 class="text-lg font-semibold mb-2">实战案例</h3>
+                <p class="text-gray-600 dark:text-gray-400">MNIST手写数字识别完整实现</p>
+            </div>
+        </section>
+
+        <!-- 核心概念可视化 -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-2xl font-bold mb-8">关键概念解析</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 感知机示意图 -->
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                    <div class="flex justify-center mb-4">
+                        <svg width="300" height="120">
+                            <!-- 输入层 -->
+                            <circle cx="50" cy="60" r="15" fill="#6366f1"/>
+                            <circle cx="50" cy="20" r="15" fill="#6366f1"/>
+                            <!-- 输出层 -->
+                            <circle cx="250" cy="40" r="15" fill="#10b981"/>
+                            <!-- 连接线 -->
+                            <path d="M65 20 Q 150 20 235 40" stroke="#94a3b8" fill="none" stroke-width="2"/>
+                            <path d="M65 60 Q 150 60 235 40" stroke="#94a3b8" fill="none" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">感知机结构</h3>
+                    <p class="text-gray-600 dark:text-gray-400">输入层 → 权重计算 → 激活函数 → 输出</p>
+                </div>
+
+                <!-- 反向传播流程图 -->
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm">
+                    <div class="flex items-center justify-around mb-4">
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-project-diagram text-purple-500"></i>
+                            </div>
+                            <span class="text-sm">前向传播</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-calculator text-blue-500"></i>
+                            </div>
+                            <span class="text-sm">损失计算</span>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-sync-alt text-green-500"></i>
+                            </div>
+                            <span class="text-sm">梯度更新</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">误差反向传播流程</h3>
+                    <p class="text-gray-600 dark:text-gray-400">计算图 → 链式法则 → 参数优化</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 代码示例 -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-2xl font-bold mb-8">实战代码示例</h2>
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-400 text-sm">neural_network.py</span>
+                </div>
+                <pre class="text-gray-100 overflow-x-auto">
+<code class="language-python">class NeuralNetwork:
+    def __init__(self, input_size, hidden_size):
+        self.W1 = np.random.randn(input_size, hidden_size)
+        self.b1 = np.zeros(hidden_size)
+        self.W2 = np.random.randn(hidden_size, 1)
+        
+    def forward(self, X):
+        self.z = np.dot(X, self.W1) + self.b1
+        self.a = self.sigmoid(self.z)
+        return self.a
+    
+    def backward(self, X, y, learning_rate):
+        # 反向传播实现
+        error = self.a - y
+        dW2 = np.dot(self.a.T, error)
+        dW1 = np.dot(X.T, np.dot(error, self.W2.T) * self.sigmoid_deriv(self.z))
+        
+        self.W1 -= learning_rate * dW1
+        self.W2 -= learning_rate * dW2</code>
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-100 dark:bg-gray-900 mt-24 py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h4 class="font-semibold mb-2">作者信息</h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-user mr-2"></i>PatTianFang
+                    </p>
+                    <div class="mt-2 flex space-x-4">
+                        <a href="https://github.com/PatTianFang" 
+                           class="text-gray-600 dark:text-gray-400 hover:text-[var(--primary)] transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <span class="text-gray-600 dark:text-gray-400 cursor-help" 
+                              title="微信：PatTech">
+                            <i class="fab fa-weixin text-xl"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        © 2023 深度学习入门指南<br>
+                        MIT License - 保留所有权利
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // 初始化主题
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // 滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

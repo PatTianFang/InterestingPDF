@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4章: 神经网络的学习</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <header class="bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">
+                    <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">深度学习入门</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:transition-all after:duration-300 after:peer-checked:right-[2px] after:peer-checked:bg-blue-600 after:peer-focus:ring-blue-300 dark:after:peer-focus:ring-blue-800"></div>
+                            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">深色模式</span>
+                        </label>
+                    </div>
+                    <div class="space-x-2">
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-blue-600 dark:text-blue-400">第4章: 神经网络的学习</h1>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">4.1 从数据中学习</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                神经网络通过数据进行学习，寻找最优的权重参数。学习的目标是找到使损失函数最小的权重参数。
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">4.2 损失函数</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                损失函数用于衡量神经网络的性能，常见的损失函数包括均方误差和交叉熵误差。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def mean_squared_error(y, t):
+    return 0.5 * np.sum((y - t) ** 2)
+
+def cross_entropy_error(y, t):
+    delta = 1e-7
+    return -np.sum(t * np.log(y + delta))</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">4.3 数值微分</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                数值微分用于计算函数的导数，是神经网络学习的基础。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def numerical_diff(f, x):
+    h = 1e-4
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+def function_1(x):
+    return 0.01 * x ** 2 + 0.1 * x
+
+print(numerical_diff(function_1, 5))  # 0.1999999999990898
+print(numerical_diff(function_1, 10))  # 0.2999999999986347</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">4.4 梯度</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                梯度是损失函数关于权重参数的导数，用于指导参数的更新方向。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def numerical_gradient(f, x):
+    h = 1e-4
+    grad = np.zeros_like(x)
+    
+    for idx in range(x.size):
+        tmp_val = x[idx]
+        x[idx] = tmp_val + h
+        fxh1 = f(x)
+        
+        x[idx] = tmp_val - h
+        fxh2 = f(x)
+        
+        grad[idx] = (fxh1 - fxh2) / (2 * h)
+        x[idx] = tmp_val
+    
+    return grad</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">4.5 学习算法的实现</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用随机梯度下降法（SGD）更新权重参数。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">class SGD:
+    def __init__(self, lr=0.01):
+        self.lr = lr
+    
+    def update(self, params, grads):
+        for key in params.keys():
+            params[key] -= self.lr * grads[key]</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-900 shadow-inner">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        © 2023 <span class="font-bold text-gray-800 dark:text-gray-200">PatTianFang</span>. 保留所有权利。
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+                本网站使用了 Tailwind CSS 和 Font Awesome 图标库
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

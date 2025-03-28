@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米澎湃OS技术白皮书可视化作品集</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @layer base {
+            body {
+                @apply font-sans text-gray-900 dark:text-white;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-bold;
+            }
+            h1 { @apply text-4xl md:text-5xl lg:text-6xl mb-4; }
+            h2 { @apply text-3xl md:text-4xl lg:text-5xl mb-3; }
+            h3 { @apply text-2xl md:text-3xl lg:text-4xl mb-2; }
+            p { @apply mb-4; }
+        }
+        .hero {
+            background: linear-gradient(135deg, #2b6cb0, #4299e1);
+            color: white;
+        }
+        .card {
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .toggle-theme {
+            cursor: pointer;
+        }
+        .toggle-theme:hover {
+            filter: brightness(1.1);
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
+    <!-- 主题切换 -->
+    <div class="fixed top-4 right-4 z-10">
+        <button id="themeToggle" class="toggle-theme p-2 rounded-full bg-white dark:bg-gray-800 shadow-md">
+            <i id="themeIcon" class="fas fa-moon text-gray-600 dark:text-gray-300"></i>
+        </button>
+    </div>
+
+    <!-- 导航 -->
+    <nav class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#home" class="text-xl font-bold text-gray-800 dark:text-white">小米澎湃OS</a>
+            </div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#overview" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">概览</a>
+                <a href="#architecture" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">技术架构</a>
+                <a href="#features" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">核心特性</a>
+                <a href="#ecosystem" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">生态系统</a>
+                <a href="#open-source" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">开源计划</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero py-24 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="mb-6">小米澎湃OS技术白皮书可视化作品集</h1>
+            <p class="text-lg max-w-3xl mx-auto mb-8">重新定义万物互联的智能操作系统</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#overview" class="px-6 py-3 bg-white dark:bg-gray-700 text-blue-600 dark:text-white rounded-full shadow-md hover:shadow-lg transition-shadow">开始探索</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心内容区域 -->
+    <main class="container mx-auto px-4 main-content">
+        <!-- 概览 -->
+        <section id="overview" class="mt-16">
+            <h2 class="text-center mb-12">小米澎湃OS概览</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">发展历程</h3>
+                    <p>自2010年MIUI诞生以来，小米持续深耕操作系统领域，历经Vela OS、Mina OS等多代技术积累，最终在2023年推出统一架构的小米澎湃OS。</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>2014年：统一IoT设备连接协议</li>
+                        <li>2017年：Vela OS发布</li>
+                        <li>2019年：Mina OS预研</li>
+                        <li>2023年：小米澎湃OS正式发布</li>
+                    </ul>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">核心目标</h3>
+                    <p>构建"人车家全生态"智能平台，实现：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>单端性能极致</li>
+                        <li>AI赋能生态</li>
+                        <li>便捷跨端连接</li>
+                        <li>全端隐私安全</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术架构 -->
+        <section id="architecture" class="mt-24">
+            <h2 class="text-center mb-12">技术架构解析</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">系统内核</h3>
+                    <p>融合Linux内核与自研Vela内核，支持200+处理器平台和20+文件系统。</p>
+                    <div class="mt-4">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">性能调度</span>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full ml-2">内存管理</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full ml-2">文件系统</span>
+                    </div>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">跨端层</h3>
+                    <p>HyperConnect技术实现设备间无缝互联，支持：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>分布式硬件协同</li>
+                        <li>跨设备文件传输</li>
+                        <li>多端应用接力</li>
+                        <li>安全通信协议</li>
+                    </ul>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">系统服务</h3>
+                    <p>八大子系统提供基础能力支持：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>资源调度</li>
+                        <li>AI服务</li>
+                        <li>图形渲染</li>
+                        <li>安全防护</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心特性 -->
+        <section id="features" class="mt-24">
+            <h2 class="text-center mb-12">核心技术特性</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">AI智慧中心</h3>
+                    <p>通过原子化感知和多模态融合，实现主动服务推荐。</p>
+                    <div class="mt-4">
+                        <img src="https://via.placeholder.com/300x200" alt="AI架构图" class="w-full rounded-lg shadow-md">
+                    </div>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">安全体系</h3>
+                    <p>从硬件到应用的多层防护：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>TEE可信执行环境</li>
+                        <li>端到端加密</li>
+                        <li>应用行为监控</li>
+                    </ul>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">跨端协同</h3>
+                    <p>支持设备间硬件资源共享，如：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>手机相机远程调用</li>
+                        <li>跨设备剪贴板</li>
+                        <li>多屏协同编辑</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生态系统 -->
+        <section id="ecosystem" class="mt-24">
+            <h2 class="text-center mb-12">开发者生态</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">开发工具</h3>
+                    <p>提供统一开发环境，支持：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>跨端应用开发</li>
+                        <li>AI辅助编程</li>
+                        <li>多设备模拟器</li>
+                    </ul>
+                </div>
+                <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                    <h3 class="text-xl">分发体系</h3>
+                    <p>多渠道分发支持：</p>
+                    <ul class="list-disc pl-6 mt-4">
+                        <li>应用商店</li>
+                        <li>服务卡片</li>
+                        <li>智能推荐</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 开源计划 -->
+        <section id="open-source" class="mt-24">
+            <h2 class="text-center mb-12">开源开放计划</h2>
+            <div class="card bg-white dark:bg-gray-700 rounded-lg p-6">
+                <p>小米澎湃OS将逐步开源核心组件，推动生态共建：</p>
+                <ul class="list-disc pl-6 mt-4">
+                    <li>基础内核</li>
+                    <li>跨端框架</li>
+                    <li>AI服务接口</li>
+                </ul>
+                <div class="mt-6">
+                    <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">查看开源路线图</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white dark:bg-gray-800 mt-24 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <a href="https://github.com/PatTianFang" target="_blank" class="mr-4 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    <i class="fab fa-github fa-lg"></i> GitHub
+                </a>
+                <a href="https://weixin.qq.com" target="_blank" class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    <i class="fab fa-weixin fa-lg"></i> 微信
+                </a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                作者：PatTianFang &copy; 2023 版权所有
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // 自动检测系统主题
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', prefersDark);
+        themeIcon.classList.toggle('fa-sun', prefersDark);
+        themeIcon.classList.toggle('fa-moon', !prefersDark);
+
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            themeIcon.classList.toggle('fa-sun');
+            themeIcon.classList.toggle('fa-moon');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 加载动画
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.card, .hero');
+            elements.forEach((element, index) => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }, index * 100 + 200);
+            });
+        });
+    </script>
+</body>
+</html>

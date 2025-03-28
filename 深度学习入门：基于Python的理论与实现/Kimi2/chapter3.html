@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3章: 神经网络</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            hljs.highlightAll();
+        });
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <header class="bg-white dark:bg-gray-900 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">
+                    <a href="index.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">深度学习入门</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 dark:bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:transition-all after:duration-300 after:peer-checked:right-[2px] after:peer-checked:bg-blue-600 after:peer-focus:ring-blue-300 dark:after:peer-focus:ring-blue-800"></div>
+                            <span class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">深色模式</span>
+                        </label>
+                    </div>
+                    <div class="space-x-2">
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-blue-600 dark:text-blue-400">第3章: 神经网络</h1>
+        
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">3.1 从感知机到神经网络</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                神经网络和感知机有很多共同点，但主要区别在于激活函数。感知机使用阶跃函数，而神经网络使用平滑的激活函数如sigmoid或ReLU。
+            </p>
+            <div class="flex justify-center mb-4">
+                <img src="https://via.placeholder.com/600x300?text=神经网络结构图" alt="神经网络结构图" class="max-w-full h-auto rounded">
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">3.2 激活函数</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                激活函数是神经网络中不可或缺的组成部分，常见的激活函数包括sigmoid、ReLU和tanh。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def relu(x):
+    return np.maximum(0, x)
+
+def tanh(x):
+    return np.tanh(x)</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">3.3 多维数组的运算</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                使用NumPy进行多维数组的运算，可以高效地实现神经网络的前向传播。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">import numpy as np
+
+x = np.array([1.0, 0.5])
+w = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+b = np.array([0.1, 0.2, 0.3])
+
+a = np.dot(x, w) + b
+z = sigmoid(a)
+print(z)  # [0.57444252 0.66818777 0.75026011]</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">3.4 3层神经网络的实现</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                实现一个3层神经网络，包括输入层、隐藏层和输出层。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['b1'] = np.array([0.1, 0.2, 0.3])
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['b2'] = np.array([0.1, 0.2])
+    network['W3'] = np.array([[0.1, 0.3], [0.2, 0.4]])
+    network['b3'] = np.array([0.1, 0.2])
+    return network
+
+def forward(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+    
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = identity_function(a3)
+    
+    return y
+
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y)  # [0.31682708 0.69627909]</code></pre>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">3.5 输出层的设计</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">
+                输出层的设计取决于问题的类型，回归问题使用恒等函数，分类问题使用softmax函数。
+            </p>
+            <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg mb-4">
+                <pre><code class="language-python">def softmax(a):
+    exp_a = np.exp(a)
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+    return y
+
+def identity_function(x):
+    return x</code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-900 shadow-inner">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        © 2023 <span class="font-bold text-gray-800 dark:text-gray-200">PatTianFang</span>. 保留所有权利。
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+                本网站使用了 Tailwind CSS 和 Font Awesome 图标库
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

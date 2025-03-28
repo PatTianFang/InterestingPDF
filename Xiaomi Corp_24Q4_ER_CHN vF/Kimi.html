@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米公司2024年第四季度财报</title>
+    <!-- TailwindCSS via CDN -->
+    <script src="https://cdn.tailwindcss.com/3.0.0"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #0084FF;
+            --secondary-color: #F5F7FA;
+            --text-color: #333333;
+            --light-bg: #FFFFFF;
+            --dark-bg: #121212;
+            --light-text: #666666;
+            --dark-text: #FFFFFF;
+            --border-color: #E0E0E0;
+            --dark-border-color: #333333;
+        }
+
+        [data-theme="dark"] {
+            --background-color: var(--dark-bg);
+            --text-color: var(--dark-text);
+            --secondary-bg: #1F1F1F;
+            --border-color: var(--dark-border-color);
+        }
+
+        [data-theme="light"] {
+            --background-color: var(--light-bg);
+            --text-color: var(--text-color);
+            --secondary-bg: var(--secondary-color);
+            --border-color: var(--border-color);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #006FE6;
+            transform: scale(1.03);
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background-color: var(--secondary-bg);
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .stat-card {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .author-info {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <div class="container mx-auto px-4 py-8">
+        <header class="flex justify-between items-center mb-8">
+            <div class="logo flex items-center">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="currentColor"/>
+                </svg>
+                <h1 class="ml-3 text-2xl font-bold">小米公司财报</h1>
+            </div>
+            <div class="theme-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <main>
+            <section class="mb-12">
+                <h2 class="section-title">2024年第四季度业绩概览</h2>
+                <div class="grid grid-layout gap-8 mb-8">
+                    <div class="card p-6 fade-in">
+                        <div class="stat-card">
+                            <div class="stat-number">3,659</div>
+                            <div class="stat-label">总收入（亿元）</div>
+                            <div class="text-green-500">+35.0%</div>
+                        </div>
+                    </div>
+                    <div class="card p-6 fade-in">
+                        <div class="stat-card">
+                            <div class="stat-number">1,918</div>
+                            <div class="stat-label">智能设备收入（亿元）</div>
+                            <div class="text-green-500">+21.8%</div>
+                        </div>
+                    </div>
+                    <div class="card p-6 fade-in">
+                        <div class="stat-card">
+                            <div class="stat-number">1,041</div>
+                            <div class="stat-label">IoT与生活消费产品收入（亿元）</div>
+                            <div class="text-green-500">+30.0%</div>
+                        </div>
+                    </div>
+                    <div class="card p-6 fade-in">
+                        <div class="stat-card">
+                            <div class="stat-number">341</div>
+                            <div class="stat-label">互联网服务收入（亿元）</div>
+                            <div class="text-green-500">+20.5%</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="section-title">业务表现</h2>
+                <div class="card p-6 mb-8 fade-in">
+                    <div class="chart-container">
+                        <h3 class="mb-4">收入构成</h3>
+                        <div class="h-64 flex items-end">
+                            <div class="w-1/3 p-2">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 76.6%"></div>
+                                </div>
+                                <span class="text-xs text-center">智能设备 76.6%</span>
+                            </div>
+                            <div class="w-1/3 p-2">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 12.6%"></div>
+                                </div>
+                                <span class="text-xs text-center">IoT与生活消费产品 12.6%</span>
+                            </div>
+                            <div class="w-1/3 p-2">
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 10.8%"></div>
+                                </div>
+                                <span class="text-xs text-center">互联网服务 10.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6 fade-in">
+                    <h3 class="mb-4">全球智能手机市场份额</h3>
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>品牌</th>
+                                    <th>出货量（百万）</th>
+                                    <th>市场份额</th>
+                                    <th>同比增长</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>小米</td>
+                                    <td>41.9</td>
+                                    <td>14.7%</td>
+                                    <td>+17.8%</td>
+                                </tr>
+                                <tr>
+                                    <td>OPPO</td>
+                                    <td>42.7</td>
+                                    <td>15.0%</td>
+                                    <td>-2.7%</td>
+                                </tr>
+                                <tr>
+                                    <td>vivo</td>
+                                    <td>49.3</td>
+                                    <td>17.3%</td>
+                                    <td>+10.8%</td>
+                                </tr>
+                                <tr>
+                                    <td>总计</td>
+                                    <td>284.6</td>
+                                    <td>100.0%</td>
+                                    <td>+4.5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="section-title">产品亮点</h2>
+                <div class="card p-6 fade-in">
+                    <div class="product-highlights grid grid-layout gap-6">
+                        <div>
+                            <h3 class="mb-2">小米15 Ultra</h3>
+                            <p class="text-sm text-light-text">旗舰智能手机，搭载最新影像技术</p>
+                        </div>
+                        <div>
+                            <h3 class="mb-2">SU7 Ultra</h3>
+                            <p class="text-sm text-light-text">高性能电动车，0-100km/h加速仅需1.98秒</p>
+                        </div>
+                        <div>
+                            <h3 class="mb-2">小米Buds 5 Pro</h3>
+                            <p class="text-sm text-light-text">旗舰级真无线耳机，支持主动降噪</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="section-title">用户增长</h2>
+                <div class="card p-6 fade-in">
+                    <div class="chart-container">
+                        <h3 class="mb-4">MIUI月活跃用户数（百万）</h3>
+                        <div class="flex justify-between items-end h-48">
+                            <div class="w-1/5">
+                                <div class="progress-bar h-2">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                                <span class="text-xs text-center">2023 Q4: 85.8</span>
+                            </div>
+                            <div class="w-1/5">
+                                <div class="progress-bar h-2">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                                <span class="text-xs text-center">2024 Q1: 89.1</span>
+                            </div>
+                            <div class="w-1/5">
+                                <div class="progress-bar h-2">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                                <span class="text-xs text-center">2024 Q2: 96.9</span>
+                            </div>
+                            <div class="w-1/5">
+                                <div class="progress-bar h-2">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                                <span class="text-xs text-center">2024 Q3: 100.1</span>
+                            </div>
+                            <div class="w-1/5">
+                                <div class="progress-bar h-2">
+                                    <div class="progress" style="width: 100%"></div>
+                                </div>
+                                <span class="text-xs text-center">2024 Q4: 100.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="author-info fade-in">
+            <div class="mb-4">
+                <p>作者: PatTianFang</p>
+                <p>发布日期: 2025年3月</p>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/PatTianFang" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="weixin:// PatTianFang" class="social-icon">
+                    <i class="fab fa-weixin"></i>
+                </a>
+            </div>
+            <div class="mt-4">
+                <p>© 2025 PatTianFang 版权所有</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('theme-toggle');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set initial theme based on system preference
+            if (prefersDark) {
+                document.body.setAttribute('data-theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+            }
+            
+            // Toggle theme when switch is clicked
+            toggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // Check if user has previously selected a theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                toggle.checked = savedTheme === 'dark';
+            }
+            
+            // Add fade-in animation to elements when they enter viewport
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(10px)';
+                element.style.transition = 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out';
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
